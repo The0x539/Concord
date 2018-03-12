@@ -6,12 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-	<ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{x:Bind Foo}" x:Name="list" IsItemClickEnabled="True" ItemClick="listview_ItemClick" SelectionMode="None">
-		<ListView.ItemTemplate>
+	<GridView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{x:Bind Foo}" x:Name="list" IsItemClickEnabled="True" ItemClick="listview_ItemClick" SelectionMode="None">
+		<GridView.ItemTemplate>
 			<DataTemplate x:DataType="local:PosterItem">
-				<TextBlock Text="{x:Bind Name}" Style="{StaticResource BaseTextBlockStyle}" Margin="8,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-				<!--<Image Source="{x:Bind image}"/>-->
+				<StackPanel Orientation="Vertical">
+					<Image Source="{x:Bind image}" Width="Auto" Height="256"/>
+					<TextBlock Text="{x:Bind Name}" Style="{StaticResource BaseTextBlockStyle}" Margin="8,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+				</StackPanel>
 			</DataTemplate>
-		</ListView.ItemTemplate>
-	</ListView>
+		</GridView.ItemTemplate>
+	</GridView>
 </local:ListPage>

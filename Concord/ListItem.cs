@@ -36,7 +36,11 @@ namespace Concord {
 				"at world's end",
 				"on stranger tides",
 				"dead men tell no tales"
-			}/*,
+			},
+			["monsters"] = new string[] {
+				", inc.",
+				" university"
+			},/*
 			["jojo's bizarre adventure"] = new string[] {
 				"phantom blood",
 				"battle tendency",
@@ -74,7 +78,7 @@ namespace Concord {
 			foreach (KeyValuePair<string, string[]> pair in groups) {
 				string series = pair.Key;
 				string[] entries = pair.Value;
-				if (a.Contains(series) && b.Contains(series)) {
+				if (a.StartsWith(series) && b.StartsWith(series)) {
 					for (int i = 0; i < entries.Length; i++) {
 						string entry = entries[i];
 						a = a.Replace(entry, i.ToString());

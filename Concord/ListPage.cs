@@ -25,7 +25,7 @@ namespace Concord {
 		protected readonly ObservableCollection<ListItem> Items = new ObservableCollection<ListItem>();
 		protected StorageFolder Folder;
 
-		private async void Populate() {
+		public async void Populate() {
 			var tFolders = Folder.GetFoldersAsync();
 			var tFiles = Folder.GetFilesAsync();
 
@@ -36,15 +36,21 @@ namespace Concord {
 				folders.Add(MakeItem(folder));
 			folders.Sort();
 
-			foreach (ListItem folder in folders)
-				Items.Add(folder);
+			var items = new List<ListItem>();
+
+			foreach (var folder in folders)
+				items.Add(folder);
 
 			foreach (var file in await tFiles)
 				files.Add(MakeItem(file));
 			files.Sort();
 
-			foreach (ListItem file in files)
-				Items.Add(file);
+			foreach (var file in files)
+				items.Add(file);
+
+			Items.Clear();
+			foreach (var item in items)
+				Items.Add(item);
 		}
 
 		protected virtual ListItem MakeItem(IStorageItem item) => new ListItem(item);

@@ -33,6 +33,9 @@ namespace Concord {
 		public void NavigateTo(StorageFolder item) {
 			ListFrame.Navigate(typeof(PosterPage), item);
 		}
+		public void RefreshList() {
+			((ListPage) ListFrame.Content).Populate();
+		}
 
 		protected sealed override void OnNavigatedTo(NavigationEventArgs e) {
 			StorageFolder folder = (StorageFolder) e.Parameter;

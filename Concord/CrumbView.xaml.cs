@@ -37,7 +37,7 @@ namespace Concord {
 
 		private void crumbs_ItemClick(object sender, ItemClickEventArgs e) {
 			bool foo = false;
-			for (int i = Crumbs.Count; i --> 0;) {
+			for (int i = Crumbs.Count; i-- > 0;) {
 				StorageFolder crumb = Crumbs[i];
 				if (crumb == e.ClickedItem)
 					break;
@@ -45,9 +45,11 @@ namespace Concord {
 				foo = true;
 			}
 			if (foo)
-				((MainPage) ((Grid) Parent).Parent).NavigateTo((StorageFolder) e.ClickedItem);
-			else
+				((MainPage)((Grid)Parent).Parent).NavigateTo((StorageFolder)e.ClickedItem);
+			else if (Crumbs.Count == 1)
 				App.NewRoot();
+			else
+				((MainPage)((Grid) Parent).Parent).RefreshList();
 		}
 	}
 

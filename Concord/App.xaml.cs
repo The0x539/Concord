@@ -87,9 +87,12 @@ namespace Concord {
 		}
 
 		public static async void NewRoot() {
-			StorageFolder newFolder = await PickFolder();
-			if (newFolder == null)
+			StorageFolder newFolder;
+			try {
+				newFolder = await PickFolder();
+			} catch {
 				newFolder = RootFolder;
+			}
 			(Window.Current.Content as Frame).Navigate(typeof(MainPage), newFolder);
 		}
 
