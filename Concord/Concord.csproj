@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Roman.cs" />
     <Compile Include="CrumbView.xaml.cs">
       <DependentUpon>CrumbView.xaml</DependentUpon>
     </Compile>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 namespace Concord {
 	public class ListItem : IComparable {
@@ -42,17 +43,26 @@ namespace Concord {
 			}*/
 		};
 
-		public string Name { get; }
+		public string Name { get; private set; }
 		public IStorageItem StorageItem { get; }
 
 		public bool IsFolder => StorageItem is StorageFolder;
+
+		[DllImport("shlwapi.dll", CharSet = CharSet.Unicode)]
+		private static extern int StrCmpLogicalW(string psz1, string psz2);
 
 		public int CompareTo(object that) {
 			if (!(that is ListItem))
 				return 0;
 
-			string a = Name.ToLower();
-			string b = ((ListItem) that).Name.ToLower();
+			string a = Name;
+			string b = ((ListItem) that).Name;
+
+			a = Roman.Replace(a);
+			b = Roman.Replace(b);
+
+			a = a.ToLower();
+			b = b.ToLower();
 
 			foreach (KeyValuePair<string, string[]> pair in groups) {
 				string series = pair.Key;
@@ -73,9 +83,7 @@ namespace Concord {
 				b = b.Substring(4);
 			}
 
-			Console.WriteLine(a);
-
-			return a.CompareTo(b);
+			return StrCmpLogicalW(a, b);
 		}
 	}
 }

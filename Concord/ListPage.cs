@@ -36,12 +36,13 @@ namespace Concord {
 				folders.Add(MakeItem(folder));
 			folders.Sort();
 
+			foreach (ListItem folder in folders)
+				Items.Add(folder);
+
 			foreach (var file in await tFiles)
 				files.Add(MakeItem(file));
 			files.Sort();
 
-			foreach (ListItem folder in folders)
-				Items.Add(folder);
 			foreach (ListItem file in files)
 				Items.Add(file);
 		}
