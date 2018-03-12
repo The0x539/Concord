@@ -29,7 +29,14 @@ namespace Concord {
 				"solo"
 			},
 			["tron"] = new string[] {" legacy"},
-			["blade runner"] = new string[] {" 2049"}/*,
+			["blade runner"] = new string[] {" 2049"},
+			["pirates of the caribbean"] = new string[] {
+				"the curse of the black pearl",
+				"dead man's chest",
+				"at world's end",
+				"on stranger tides",
+				"dead men tell no tales"
+			}/*,
 			["jojo's bizarre adventure"] = new string[] {
 				"phantom blood",
 				"battle tendency",
