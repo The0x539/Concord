@@ -28,7 +28,11 @@ namespace Concord {
 		public CrumbView() {
 			InitializeComponent();
 			Crumbs = new ObservableCollection<StorageFolder>();
-			Crumbs.Add(App.RootFolder);
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e) {
+			Crumbs.Clear();
+			Crumbs.Add((StorageFolder) e.Parameter);
 		}
 
 		private void crumbs_ItemClick(object sender, ItemClickEventArgs e) {
@@ -42,6 +46,8 @@ namespace Concord {
 			}
 			if (foo)
 				((MainPage) ((Grid) Parent).Parent).NavigateTo((StorageFolder) e.ClickedItem);
+			else
+				App.NewRoot();
 		}
 	}
 

@@ -37,6 +37,8 @@ namespace Concord {
 		protected sealed override void OnNavigatedTo(NavigationEventArgs e) {
 			StorageFolder folder = (StorageFolder) e.Parameter;
 			NavigateTo(folder);
+			CrumbView.Crumbs.Clear();
+			CrumbView.Crumbs.Add(folder);
 		}
 	}
 }

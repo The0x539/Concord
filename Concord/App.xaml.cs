@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using System.Threading.Tasks;
 
 
 namespace Concord {
@@ -29,8 +30,8 @@ namespace Concord {
 		/// Initializes the singleton application object.  This is the first line of authored code
 		/// executed, and as such is the logical equivalent of main() or WinMain().
 		/// </summary>
-		
-		public static StorageItemAccessList FutureAccessList { get; }
+
+		public static readonly StorageItemAccessList Fal = StorageApplicationPermissions.FutureAccessList;
 		public static StorageFolder RootFolder;
 		
 		public App() {
@@ -43,7 +44,7 @@ namespace Concord {
 		/// will be used such as when the application is launched to open a specific file.
 		/// </summary>
 		/// <param name="e">Details about the launch request and process.</param>
-		protected override void OnLaunched(LaunchActivatedEventArgs e) {
+		protected override async void OnLaunched(LaunchActivatedEventArgs e) {
 			Frame rootFrame = Window.Current.Content as Frame;
 
 			// Do not repeat app initialization when the Window already has content,
@@ -66,21 +67,30 @@ namespace Concord {
 				// Ensure the current window is active
 				Window.Current.Activate();
 			}
-			doAThing();
+			RootFolder = await DoAThing();
+			rootFrame.Navigate(typeof(MainPage), RootFolder);
 		}
 
-		private async void doAThing() {
-			Frame rootFrame = Window.Current.Content as Frame;
-			if (rootFrame.Content == null) {
-				// When the navigation stack isn't restored navigate to the first page,
-				// configuring the new page by passing required information as a navigation
-				// parameter
-				//formerly used e.Arguments as navigation arg
-				FolderPicker picker = new FolderPicker();
-				picker.FileTypeFilter.Add(".");
-				RootFolder = await picker.PickSingleFolderAsync();
-				rootFrame.Navigate(typeof(MainPage), RootFolder);
-			}
+		private async Task<StorageFolder> DoAThing() {
+			foreach (AccessListEntry entry in Fal.Entries)
+				return await Fal.GetFolderAsync(entry.Token);
+			return await PickFolder();
+		}
+
+		private static async Task<StorageFolder> PickFolder() {
+			FolderPicker picker = new FolderPicker();
+			picker.FileTypeFilter.Add(".");
+			StorageFolder picked = await picker.PickSingleFolderAsync();
+			Fal.Clear();
+			Fal.Add(picked);
+			return picked;
+		}
+
+		public static async void NewRoot() {
+			StorageFolder newFolder = await PickFolder();
+			if (newFolder == null)
+				newFolder = RootFolder;
+			(Window.Current.Content as Frame).Navigate(typeof(MainPage), newFolder);
 		}
 
 		/// <summary>
