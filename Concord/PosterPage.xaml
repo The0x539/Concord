@@ -10,7 +10,7 @@
 		<GridView.ItemTemplate>
 			<DataTemplate x:DataType="local:PosterItem">
 				<StackPanel Orientation="Vertical">
-					<Image Source="{x:Bind image}" Width="Auto" Height="256"/>
+					<Image Source="{x:Bind image}" Width="Auto" Height="200"/>
 					<TextBlock Text="{x:Bind Name}" Style="{StaticResource BaseTextBlockStyle}" Margin="8,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 				</StackPanel>
 			</DataTemplate>
