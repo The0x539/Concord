@@ -13,10 +13,10 @@ using Windows.Storage.Streams;
 namespace Concord {
 	class PosterItem : ListItem {
 		static readonly BitmapImage fallback = new BitmapImage(new Uri("/Assets/StoreLogo.png"));
-		public BitmapImage image { get; private set; }
+		public BitmapImage Image { get; private set; }
 
 		public PosterItem(IStorageItem item) : base(item) {
-			image = new BitmapImage(new Uri("ms-appx:///Assets/StoreLogo.png", UriKind.Absolute));
+			Image = new BitmapImage(new Uri("ms-appx:///Assets/StoreLogo.png", UriKind.Absolute));
 			GetImage();
 		}
 
@@ -26,9 +26,9 @@ namespace Concord {
 				const ThumbnailMode thumbnailMode = ThumbnailMode.SingleItem;
 				const ThumbnailOptions thumbnailOptions = ThumbnailOptions.UseCurrentScale;
 				StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(thumbnailMode, requestedSize, thumbnailOptions);
-				image.DecodePixelWidth = (int) thumbnail.OriginalWidth;
-				image.DecodePixelHeight = (int) thumbnail.OriginalHeight;
-				await image.SetSourceAsync(thumbnail);
+				Image.DecodePixelWidth = (int) thumbnail.OriginalWidth;
+				Image.DecodePixelHeight = (int) thumbnail.OriginalHeight;
+				await Image.SetSourceAsync(thumbnail);
 			} else if (StorageItem is StorageFolder folder) {
 				StorageFile img;
 				try {
@@ -37,7 +37,7 @@ namespace Concord {
 					return;
 				}
 				IRandomAccessStream stream = await img.OpenAsync(FileAccessMode.Read);
-				await image.SetSourceAsync(stream);
+				await Image.SetSourceAsync(stream);
 			}
 		}
 	}

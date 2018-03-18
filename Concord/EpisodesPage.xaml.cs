@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Navigation;
 
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using System.Threading.Tasks;
+using System.Text;
+using System.Collections.ObjectModel;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,26 +26,14 @@ namespace Concord {
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MainPage : Page {
-		public MainPage() {
+	public partial class EpisodesPage : ListPage {
+		protected ObservableCollection<ListItem> Foo => base.Items;
+
+		public EpisodesPage() {
 			InitializeComponent();
 		}
 
-		public void PushItem(StorageFolder item) {
-			CrumbView.Crumbs.Add(item);
-		}
-		public void NavigateTo(StorageFolder item) {
-			ListFrame.Navigate(typeof(PostersPage), item);
-		}
-		public void RefreshList() {
-			((ListPage) ListFrame.Content).Populate();
-		}
-
-		protected sealed override void OnNavigatedTo(NavigationEventArgs e) {
-			StorageFolder folder = (StorageFolder) e.Parameter;
-			NavigateTo(folder);
-			CrumbView.Crumbs.Clear();
-			CrumbView.Crumbs.Add(folder);
-		}
+		protected sealed override ListItem MakeItem(IStorageItem item) => new PosterItem(item);
 	}
+
 }

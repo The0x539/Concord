@@ -67,7 +67,9 @@ namespace Concord {
 				mainPage.PushItem((StorageFolder) clickedItem.StorageItem);
 				Frame.Navigate(GetType(), clickedItem.StorageItem);
 			} else {
-				await Launcher.LaunchFileAsync((StorageFile) clickedItem.StorageItem);
+				StorageFile file = clickedItem.StorageItem as StorageFile;
+				(Window.Current.Content as Frame).Navigate(typeof(PlayerPage), file);
+				//await Launcher.LaunchFileAsync(file);
 			}
 		}
 	}

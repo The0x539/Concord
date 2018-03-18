@@ -95,6 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EpisodesPage.xaml.cs">
+      <DependentUpon>EpisodesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerPage.xaml.cs">
+      <DependentUpon>PlayerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Roman.cs" />
     <Compile Include="CrumbView.xaml.cs">
       <DependentUpon>CrumbView.xaml</DependentUpon>
@@ -105,8 +111,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PosterItem.cs" />
-    <Compile Include="PosterPage.xaml.cs">
-      <DependentUpon>PosterPage.xaml</DependentUpon>
+    <Compile Include="PostersPage.xaml.cs">
+      <DependentUpon>PostersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,7 +152,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PosterPage.xaml">
+    <Page Include="EpisodesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PostersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

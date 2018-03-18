@@ -1,5 +1,5 @@
 ﻿<local:ListPage
-    x:Class="Concord.PosterPage"
+    x:Class="Concord.EpisodesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Concord"
@@ -10,7 +10,7 @@
 		<GridView.ItemTemplate>
 			<DataTemplate x:DataType="local:PosterItem">
 				<StackPanel Orientation="Vertical">
-					<Image Source="{x:Bind image}" Width="Auto" Height="200"/>
+					<Image Source="{x:Bind Image}" Width="Auto" Height="200"/>
 					<TextBlock Text="{x:Bind Name}" Style="{StaticResource BaseTextBlockStyle}" Margin="8,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 				</StackPanel>
 			</DataTemplate>

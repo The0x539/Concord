@@ -5,6 +5,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -13,27 +16,27 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using System.Threading.Tasks;
-using System.Text;
-using System.Collections.ObjectModel;
-using Windows.System;
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Concord {
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public partial class PosterPage : ListPage {
-		protected ObservableCollection<ListItem> Foo => base.Items;
-
-		public PosterPage() {
+	public sealed partial class PlayerPage : Page {
+		public MediaPlayer PlayerObj { get; private set; }
+		public PlayerPage() {
+			PlayerObj = new MediaPlayer();
 			InitializeComponent();
 		}
 
-		protected sealed override ListItem MakeItem(IStorageItem item) => new PosterItem(item);
-	}
+		protected override void OnNavigatedTo(NavigationEventArgs e) {
+			PlayerObj.Source = MediaSource.CreateFromStorageFile(e.Parameter as StorageFile);
+			PlayerElement.SetMediaPlayer(PlayerObj);
+		}
 
+		private void Close(object sender, RoutedEventArgs e) {
+			(Window.Current.Content as Frame).Navigate(typeof(MainPage), App.RootFolder);
+			PlayerObj.Dispose();
+		}
+	}
 }
